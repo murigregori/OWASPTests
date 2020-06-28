@@ -1,4 +1,4 @@
-Feature: Customer Login in OWASP Juice Shop
+Feature: Happy Path for customer in OWASP Juice Shop
 
 Scenario: User successfully logs in to their account
   Given the user is in the OWASP Shop Home page
