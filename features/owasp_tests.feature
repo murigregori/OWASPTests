@@ -6,6 +6,8 @@ Background:
 
 Scenario: User successfully buys an item from the OWASP Juice Shop 
   Given the user has added an item to the cart
-   When the user checkouts their cart
-    And the user pays for the item using their card
+   When the user checks out their cart
+    And the user picks their address
+    And the user picks their delivery option
+    And the user pays with their OWASP wallet
    Then the user should be notified that the item has been added to cart
