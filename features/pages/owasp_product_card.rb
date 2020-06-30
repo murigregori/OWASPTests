@@ -11,7 +11,6 @@ class OWASPProductCard
     add_to_cart_btn
     sleep 1
     @browser.span(:text => msg).present?
-    @browser.span(:text => 'X').present?
     sleep 2
   end 
 end

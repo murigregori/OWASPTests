@@ -7,6 +7,7 @@ class OWASPHomePage
   button(:account_btn, :id => 'navbarAccount')
   button(:login_btn, :aria_label => 'Go to login page')
   
+  
   def go_to_owasp_site
     @browser.goto('http://139.99.96.214:3000')
   end
@@ -17,7 +18,7 @@ class OWASPHomePage
     login_btn
   end
 
-  def close
-    @browser.close
+  def close_cookies
+    @browser.link(:aria_label => 'dismiss cookie message').when_present.click
   end
 end

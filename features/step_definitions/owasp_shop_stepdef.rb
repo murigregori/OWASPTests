@@ -1,13 +1,8 @@
-require_relative '../pages/owasp_dialog.rb'
-require_relative '../pages/owasp_home_page.rb'
-require_relative '../pages/owasp_login_page.rb'
-require_relative '../pages/owasp_account_page.rb'
-require_relative '../pages/owasp_product_card.rb'
-require_relative '../pages/owasp_basket_page.rb'
-
 Given(/^the user is in the OWASP Shop Home page$/) do
 @owasp_home_page = OWASPHomePage.new(@browser)
 @owasp_home_page.go_to_owasp_site
+sleep 2
+@owasp_home_page.close_cookies
 @owasp_dialog = OWASPDialog.new(@browser)
 sleep 2
 expect(@owasp_dialog).present?
@@ -53,7 +48,21 @@ When(/^the user picks their address$/) do
 @owasp_address_page = OWASPAddressPage.new(@browser)
 expect(@owasp_address_page).present?
 @owasp_address_page.pick_address(@address)
-log(@product_name)
-log(@address)
-log(@product_price)
+end
+
+When(/^the user picks their delivery option$/) do
+@delivery = '3 Days'
+@owasp_delivery_page = OWASPDeliveryOptions.new(@browser)
+expect(@owasp_delivery_page).present?
+sleep 2
+@owasp_delivery_page.pick_delivery_speed(@delivery)
+end
+
+When(/^the user pays with their OWASP wallet$/) do
+@mode_of_payment = 'Digital Wallet'
+@owasp_payment_page = OWASPPaymentOptions.new(@browser)
+expect(@owasp_payment_page).present?
+sleep 2
+@wallet_bal = @owasp_payment_page.return_wallet_balance
+@owasp_payment_page.payment_via_wallet
 end
