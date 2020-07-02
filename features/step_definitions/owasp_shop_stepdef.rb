@@ -12,6 +12,11 @@ sleep 2
 expect(owasp_home_page).present?
 end
 
+Given(/^the user is in the Home page$/) do
+owasp_acct_page = OWASPAccountPage.new(@browser)
+expect(owasp_acct_page).present?
+end
+
 When(/^the user logs in with correct credentials$/) do
 owasp_home_page = OWASPHomePage.new(@browser)
 expect(owasp_home_page).present?
@@ -21,7 +26,7 @@ expect(owasp_login_page).present?
 owasp_login_page.login("test@test.com", "abcd1234")
 end
 
-Given(/^the user has added "([^"]*)" to the cart$/) do
+Given(/^the user has added "([^"]*)" to the cart$/) do |item|
 @product_name = item
 owasp_acct_page = OWASPAccountPage.new(@browser)
 expect(owasp_acct_page).present?
@@ -90,4 +95,21 @@ expect(final_total).to eql(@product_price)
 expect(final_delivery).to eql(@delivery.downcase)
 end
 
+When(/^the user leaves a review for "([^"]*)"$/) do |item|
+@review = "I really like this " + item
+owasp_acct_page = OWASPAccountPage.new(@browser)
+expect(owasp_acct_page).present?
+owasp_product = OWASPProductCard.new(@browser)
+sleep 2
+owasp_product.leave_review_for_product(item, @review)
+sleep 2
+end
+
+Then(/^the user should see that the review has been posted$/) do
+owasp_acct_page = OWASPAccountPage.new(@browser)
+expect(owasp_acct_page).present?
+owasp_product = OWASPProductCard.new(@browser)
+seen = owasp_product.view_review(@review)
+expect(seen).to eq true
+end
 
