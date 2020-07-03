@@ -27,10 +27,15 @@ AUTOMATION WITH CUCUMBER, WATIR, AND RUBY (Windows, Linux, MacOS)
 FOLDER STRUCTURE:
 
   | OWASPTests
+  
     | features
+    
       | pages
+      
       | step_definitions
+      
       | support 
+      
     | owasp_test.feature
 
 * Pages - where Page Object Model files are stored
